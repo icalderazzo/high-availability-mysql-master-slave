@@ -1,0 +1,37 @@
+services:
+  mysql-master:
+    image: mysql:8.0.42
+    container_name: mysql-master
+    # Commands to configure the master for replication
+    command: --server-id=1 --log-bin=mysql-bin --binlog-format=row
+    volumes:
+      - mysql_master_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: your_super_secure_root_password
+      MYSQL_DATABASE: mydatabase
+      # This user will handle replication
+      MYSQL_USER: replication_user
+      MYSQL_PASSWORD: replication_password_123
+    ports:
+      - "3306:3306"
+
+  mysql-slave:
+    image: mysql:8.0.42
+    container_name: mysql-slave
+    depends_on:
+      - mysql-master
+    # Similar commands and environment variables as the master
+    command: --server-id=2 --log-bin=mysql-bin --binlog-format=row
+    volumes:
+      - mysql_slave_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: your_super_secure_root_password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: replication_user
+      MYSQL_PASSWORD: replication_password_123
+    ports:
+      - "3307:3306"
+
+volumes:
+  mysql_master_data:
+  mysql_slave_data:
