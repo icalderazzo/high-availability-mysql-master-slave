@@ -1,0 +1,3 @@
+[submodule "data-samples"]
+	path = data-samples
+	url = https://github.com/icalderazzo/mysql-database-samples
