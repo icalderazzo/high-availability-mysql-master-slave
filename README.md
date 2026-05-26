@@ -6,6 +6,15 @@ Este repositorio contiene un ejemplo de configuración de MySQL en modalidad mas
 * Docker
 * Docker Desktop
 
+## Sample database
+
+El nodo master está precargado con un backup de [classicmodels](data-samples/mysqltutorial.org/mysql-classicmodesl.sql) sample database: [mysqltutorial.org](http://www.mysqltutorial.org/mysql-sample-database.aspx). El archivo SQL se monta como `entrypoint` en `/docker-entrypoint-initdb.d/` y MySQL lo ejecuta automáticamente **en el primer startup**, cuando el volumen está vacío.
+
+> **Note:** Si el volumen `mysql_master_data` ya existe de init previo, **no** se va a re ejecutar. Es necesario eliminar los volumenes para que el seed funcione correctamente:
+> ```
+> docker compose down -v
+> ```
+
 ## Pasos para configurar
 ### 1. Levantar el compose
 ```

@@ -6,6 +6,7 @@ services:
     command: --server-id=1 --log-bin=mysql-bin --binlog-format=row
     volumes:
       - mysql_master_data:/var/lib/mysql
+      - ./data-samples/mysqltutorial.org:/docker-entrypoint-initdb.d:ro
     environment:
       MYSQL_ROOT_PASSWORD: your_super_secure_root_password
       MYSQL_DATABASE: mydatabase
