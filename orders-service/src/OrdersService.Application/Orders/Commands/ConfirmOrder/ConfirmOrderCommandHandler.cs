@@ -19,7 +19,7 @@ public class ConfirmOrderCommandHandler(
             if (order is null)
                 return new Result<int>(new KeyNotFoundException($"Order '{command.OrderNumber}' not found."));
 
-            order.Ship(command.ShippedDate);
+            order.Ship(DateTime.UtcNow);
             orderRepository.Update(order);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
