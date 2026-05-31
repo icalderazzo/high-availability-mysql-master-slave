@@ -8,7 +8,7 @@
       "applicationUrl": "http://localhost:5107",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Server=localhost;Port=3306;Database=classicmodels;User=root;Password=your_super_secure_root_password;"
+        "CONNECTION_STRING": "Server=localhost;Port=6033;Database=classicmodels;User=ordersapp;Password=ordersapp_password;"
       }
     },
     "https": {
@@ -18,7 +18,7 @@
       "applicationUrl": "https://localhost:7186;http://localhost:5107",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Server=localhost;Port=3306;Database=classicmodels;User=root;Password=your_super_secure_root_password;"
+        "CONNECTION_STRING": "Server=localhost;Port=6033;Database=classicmodels;User=ordersapp;Password=ordersapp_password;"
       }
     }
   }

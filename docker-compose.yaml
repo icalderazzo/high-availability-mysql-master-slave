@@ -10,6 +10,8 @@ services:
       - ./data-samples/mysqltutorial.org/mysql-classicmodesl.sql:/docker-entrypoint-initdb.d/01-classicmodels.sql:ro
       # 02 - grant REPLICATION SLAVE privilege to replication_user (runs after seed)
       - ./mysql/master/init.sql:/docker-entrypoint-initdb.d/02-replication.sql:ro
+      # 03 - create business stored procedures
+      - ./mysql/stored_proc/monthly-sales-report.sql:/docker-entrypoint-initdb.d/03-monthly-sales-report.sql:ro
       - mysql_master_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: your_super_secure_root_password
@@ -25,6 +27,8 @@ services:
       timeout: 5s
       retries: 20
       start_period: 30s
+    networks:
+      - mysql-network
 
   mysql-slave:
     image: mysql:8.0.42
@@ -48,7 +52,39 @@ services:
       MASTER_PASSWORD: replication_password_123
     ports:
       - "3307:3306"
+    networks:
+      - mysql-network
+
+  proxysql:
+    image: proxysql/proxysql:2.5.5
+    container_name: proxysql
+    depends_on:
+      mysql-master:
+        condition: service_healthy
+      mysql-slave:
+        condition: service_started
+    volumes:
+      - ./proxysql/proxysql.cnf:/etc/proxysql.cnf:ro
+      - proxysql_data:/var/lib/proxysql
+    environment:
+      MYSQL_ROOT_PASSWORD: your_super_secure_root_password
+    ports:
+      - "6033:6033"  # MySQL interface for application connections
+      - "6032:6032"  # Admin interface for management
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h127.0.0.1", "-P6033", "-uordersapp", "-pordersapp_password", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - mysql-network
 
 volumes:
   mysql_master_data:
   mysql_slave_data:
+  proxysql_data:
+
+networks:
+  mysql-network:
+    driver: bridge
