@@ -2,11 +2,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrdersService.API.Extensions;
 using OrdersService.Application.DTOs;
+using OrdersService.Application.DTOs.Reports;
 using OrdersService.Application.Orders.Commands.CancelOrder;
 using OrdersService.Application.Orders.Commands.ConfirmOrder;
 using OrdersService.Application.Orders.Commands.CreateOrder;
 using OrdersService.Application.Orders.Queries.GetOrderById;
 using OrdersService.Application.Orders.Queries.GetOrdersByCustomer;
+using OrdersService.Application.Orders.Queries.GetMonthlySalesReport;
 
 namespace OrdersService.API.Controllers;
 

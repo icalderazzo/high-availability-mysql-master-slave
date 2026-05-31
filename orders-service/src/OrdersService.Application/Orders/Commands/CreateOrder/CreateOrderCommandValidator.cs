@@ -12,12 +12,9 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
         RuleFor(x => x.CustomerNumber)
             .GreaterThan(0).WithMessage("CustomerNumber must be greater than 0.");
 
-        RuleFor(x => x.OrderDate)
-            .NotEmpty().WithMessage("OrderDate is required.");
-
         RuleFor(x => x.RequiredDate)
             .NotEmpty().WithMessage("RequiredDate is required.")
-            .GreaterThanOrEqualTo(x => x.OrderDate)
+            .GreaterThanOrEqualTo(x => DateTime.UtcNow)
             .WithMessage("RequiredDate must be on or after OrderDate.");
 
         RuleFor(x => x.Items)
