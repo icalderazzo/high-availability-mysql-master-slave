@@ -96,7 +96,7 @@ proxysql  (depends_on: mysql-master & mysql-slave)
 ## Levantar el entorno
 
 ```bash
-docker compose up -d
+docker compose up --build -d
 ```
 
 Eso es todo. El entorno se configura automáticamente:

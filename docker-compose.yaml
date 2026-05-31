@@ -79,6 +79,20 @@ services:
       start_period: 30s
     networks:
       - mysql-network
+      - services-network
+
+  orders-service:
+    build:
+      context: ./orders-service
+    image: orders-service:latest
+    container_name: orders-service
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      CONNECTION_STRING: Server=proxysql;Port=6033;Database=classicmodels;User=ordersapp;Password=ordersapp_password;
+    ports:
+      - "8080:80"
+    networks:
+      - services-network
 
 volumes:
   mysql_master_data:
@@ -87,4 +101,6 @@ volumes:
 
 networks:
   mysql-network:
+    driver: bridge
+  services-network:
     driver: bridge
