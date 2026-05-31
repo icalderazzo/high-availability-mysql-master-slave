@@ -1,6 +1,6 @@
-namespace OrdersService.Domain.Entities.Reporting;
+namespace OrdersService.Application.DTOs.Reports;
 
-public class TopProduct
+public class TopProductDto
 {
     public string ProductCode { get; set; } = string.Empty;
     public string ProductName { get; set; } = string.Empty;

@@ -18,5 +18,6 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
         services.AddSingleton<OrderMapper>();
+        services.AddSingleton<ReportMapper>();
     }
 }

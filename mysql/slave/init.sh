@@ -97,6 +97,9 @@ echo "[slave/init.sh] Importing dump into slave..."
 _mysql_slave < "${DUMP_FILE}"
 rm -f "${DUMP_FILE}"
 
+echo "[slave/init.sh] Creating application users on slave..."
+_mysql_slave < /slave-init/init.sql
+
 echo "[slave/init.sh] Configuring replication..."
 _mysql_slave <<-EOSQL
   STOP SLAVE;
