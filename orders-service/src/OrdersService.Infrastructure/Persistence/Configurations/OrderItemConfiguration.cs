@@ -4,7 +4,7 @@ using OrdersService.Domain.Entities;
 
 namespace OrdersService.Infrastructure.Persistence.Configurations;
 
-public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
+internal class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
 {
     public void Configure(EntityTypeBuilder<OrderItem> builder)
     {
@@ -34,8 +34,6 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.Property(i => i.OrderLineNumber)
             .HasColumnName("orderLineNumber")
             .IsRequired();
-
-        builder.Ignore(i => i.LineTotal);
 
         builder.HasIndex(i => i.OrderNumber)
             .HasDatabaseName("ix_orderdetails_order_number");

@@ -15,15 +15,18 @@ public class CancelOrderCommandHandler(
     {
         try
         {
-            var order = await orderRepository.GetByIdAsync(command.OrderNumber, cancellationToken);
-            if (order is null)
-                return new Result<int>(new KeyNotFoundException($"Order '{command.OrderNumber}' not found."));
+            var orderId = await unitOfWork.ExecuteInTransactionAsync(async () =>
+            {
+                var order = await orderRepository.GetByIdAsync(command.OrderNumber, cancellationToken);
+                if (order is null)
+                    throw new KeyNotFoundException($"Order '{command.OrderNumber}' not found.");
 
-            order.Cancel();
-            orderRepository.Update(order);
-            await unitOfWork.SaveChangesAsync(cancellationToken);
+                order.Cancel();
+                orderRepository.Update(order);
+                return order.Id;
+            }, cancellationToken);
 
-            return new Result<int>(order.Id);
+            return new Result<int>(orderId);
         }
         catch (Exception ex)
         {

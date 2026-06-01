@@ -26,6 +26,4 @@ public class OrderItem
         PriceEach = priceEach;
         OrderLineNumber = orderLineNumber;
     }
-
-    public decimal LineTotal => PriceEach * QuantityOrdered;
 }

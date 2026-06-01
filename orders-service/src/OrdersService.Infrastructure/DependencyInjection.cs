@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static void AddInfrastructure(this IServiceCollection services)
     {
         var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
-            ?? throw new InvalidOperationException("Connection string 'OrdersDb' is not configured.");
+            ?? throw new InvalidOperationException("Connection string is not configured.");
 
         services.AddDbContext<OrdersDbContext>(options =>
             options.UseMySQL(
@@ -19,6 +19,7 @@ public static class DependencyInjection
                 mysql => mysql.MigrationsAssembly(typeof(OrdersDbContext).Assembly.FullName)));
 
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

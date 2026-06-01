@@ -24,8 +24,6 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
         {
             item.RuleFor(i => i.ProductCode).NotEmpty().WithMessage("ProductCode is required.");
             item.RuleFor(i => i.QuantityOrdered).GreaterThan(0).WithMessage("QuantityOrdered must be greater than 0.");
-            item.RuleFor(i => i.PriceEach).GreaterThan(0).WithMessage("PriceEach must be greater than 0.");
-            item.RuleFor(i => i.OrderLineNumber).GreaterThan((short)0).WithMessage("OrderLineNumber must be greater than 0.");
         });
     }
 }

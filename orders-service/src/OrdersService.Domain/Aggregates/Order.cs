@@ -38,15 +38,15 @@ public class Order : AggregateRoot<int>
         return new Order(orderNumber, customerNumber, requiredDate, comments);
     }
 
-    public void AddItem(string productCode, int quantityOrdered, decimal priceEach, short orderLineNumber)
+    public void AddItem(Product product, int quantityOrdered, short orderLineNumber)
     {
         EnsureNotCancelledOrResolved("add items to");
 
-        var existingItem = _items.FirstOrDefault(i => i.ProductCode == productCode);
+        var existingItem = _items.FirstOrDefault(i => i.ProductCode == product.ProductCode);
         if (existingItem is not null)
-            throw new InvalidOrderStateException($"Product '{productCode}' is already in the order.");
+            throw new InvalidOrderStateException($"Product '{product.ProductCode}' is already in the order.");
 
-        _items.Add(new OrderItem(Id, productCode, quantityOrdered, priceEach, orderLineNumber));
+        _items.Add(new OrderItem(Id, product.ProductCode, quantityOrdered, product.RetailPrice, orderLineNumber));
     }
 
     public void Ship(DateTime shippedDate)

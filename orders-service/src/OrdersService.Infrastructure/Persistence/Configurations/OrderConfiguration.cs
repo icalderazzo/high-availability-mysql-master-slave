@@ -5,7 +5,7 @@ using OrdersService.Domain.Enums;
 
 namespace OrdersService.Infrastructure.Persistence.Configurations;
 
-public class OrderConfiguration : IEntityTypeConfiguration<Order>
+internal class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {

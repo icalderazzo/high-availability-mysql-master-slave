@@ -8,6 +8,7 @@ public class OrdersDbContext(DbContextOptions<OrdersDbContext> options) : DbCont
 {
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    public DbSet<Product> Products => Set<Product>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

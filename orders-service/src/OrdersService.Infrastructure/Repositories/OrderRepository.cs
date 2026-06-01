@@ -7,7 +7,7 @@ using OrdersService.Domain.Entities.Reporting;
 
 namespace OrdersService.Infrastructure.Repositories;
 
-public class OrderRepository(OrdersDbContext context) : IOrderRepository
+internal class OrderRepository(OrdersDbContext context) : IOrderRepository
 {
     public async Task<Order?> GetByIdAsync(int orderNumber, CancellationToken cancellationToken = default)
     {

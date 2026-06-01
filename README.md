@@ -145,6 +145,12 @@ Los campos clave a verificar:
 ## Teardown
 
 ```bash
-# Detener y eliminar contenedores + volúmenes (permite re-seed limpio)
+# Detener y eliminar contenedores + volúmenes y redes (permite re-seed limpio)
 docker compose down -v
+```
+
+## Cleanup
+```bash
+# Detener y eliminar contenedores, volúmenes, redes e imágenes
+docker compose down -v --rmi all
 ```

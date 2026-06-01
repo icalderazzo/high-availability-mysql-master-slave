@@ -2,5 +2,8 @@ namespace OrdersService.Domain.Repositories;
 
 public interface IUnitOfWork
 {
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Executes work within a transaction, ensuring all database operations are atomic.
+    /// </summary>
+    Task<TResult> ExecuteInTransactionAsync<TResult>(Func<Task<TResult>> work, CancellationToken cancellationToken = default);
 }
